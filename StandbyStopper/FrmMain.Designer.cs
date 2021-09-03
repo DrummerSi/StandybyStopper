@@ -30,6 +30,7 @@ namespace StandbyStopper
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.infoBox = new System.Windows.Forms.TextBox();
             this.volumeMeter = new NAudio.Gui.VolumeMeter();
             this.timer = new System.Windows.Forms.Timer(this.components);
@@ -176,6 +177,7 @@ namespace StandbyStopper
             this.Controls.Add(this.infoBox);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmMain";
