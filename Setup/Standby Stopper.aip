@@ -15,7 +15,7 @@
     <ROW Property="ProductCode" Value="2057:{40D48EB0-7759-4853-B77D-E1B49DA28AF7} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Standby Stopper"/>
-    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.0.1" Type="32"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:Force"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{B8C8CA12-10F3-43DA-A776-BF1EC7DC6798}"/>
@@ -87,6 +87,9 @@
     <ROW File="System.Security.AccessControl.xml" Component_="CommandLine.xml" FileName="SYSTEM~1.XML|System.Security.AccessControl.xml" Attributes="0" SourcePath="..\StandbyStopper\bin\Release\System.Security.AccessControl.xml" SelfReg="false"/>
     <ROW File="System.Security.Principal.Windows.dll" Component_="System.Security.Principal.Windows.dll" FileName="SYSTEM~2.DLL|System.Security.Principal.Windows.dll" Attributes="0" SourcePath="..\StandbyStopper\bin\Release\System.Security.Principal.Windows.dll" SelfReg="false"/>
     <ROW File="System.Security.Principal.Windows.xml" Component_="CommandLine.xml" FileName="SYSTEM~2.XML|System.Security.Principal.Windows.xml" Attributes="0" SourcePath="..\StandbyStopper\bin\Release\System.Security.Principal.Windows.xml" SelfReg="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.custcomp.MsiShortcutPropertyComponent">
+    <ROW MsiShortcutProperty="StandbyStopper.exe0" Shortcut_="StandbyStopper.exe" PropertyKey="System.AppUserModel.PreventPinning" PropVariantValue="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -279,7 +282,7 @@
     <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
-    <ROW Shortcut="StandbyStopper.exe" Directory_="SHORTCUTDIR" Name="STANDB~1.EXE|StandbyStopper.exe" Component_="StandbyStopper.exe" Target="[#StandbyStopper.exe]" Description="StandbyStopper.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="StandbyStopper.exe" Directory_="SHORTCUTDIR" Name="STANDB~1|Standby Stopper" Component_="StandbyStopper.exe" Target="[#StandbyStopper.exe]" Description="Standby Stopper" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>

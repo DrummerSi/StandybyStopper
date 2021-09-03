@@ -40,9 +40,10 @@ namespace StandbyStopper
             this.btnBeep = new System.Windows.Forms.Button();
             this.btnBreak = new System.Windows.Forms.Button();
             this.btnSilence = new System.Windows.Forms.Button();
-            this.isPlayingControl = new StandbyStopper.IsPlayingControl();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.notice = new System.Windows.Forms.Label();
+            this.isPlayingControl = new StandbyStopper.IsPlayingControl();
             this.SuspendLayout();
             // 
             // infoBox
@@ -134,14 +135,6 @@ namespace StandbyStopper
             this.btnSilence.UseVisualStyleBackColor = true;
             this.btnSilence.Click += new System.EventHandler(this.btnSilence_Click);
             // 
-            // isPlayingControl
-            // 
-            this.isPlayingControl.IsPlaying = false;
-            this.isPlayingControl.Location = new System.Drawing.Point(12, 74);
-            this.isPlayingControl.Name = "isPlayingControl";
-            this.isPlayingControl.Size = new System.Drawing.Size(139, 35);
-            this.isPlayingControl.TabIndex = 2;
-            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -153,17 +146,35 @@ namespace StandbyStopper
             // lblVersion
             // 
             this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(13, 216);
+            this.lblVersion.Location = new System.Drawing.Point(297, 272);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(53, 13);
             this.lblVersion.TabIndex = 7;
             this.lblVersion.Text = "Version {}";
             // 
+            // notice
+            // 
+            this.notice.Location = new System.Drawing.Point(9, 221);
+            this.notice.Name = "notice";
+            this.notice.Size = new System.Drawing.Size(366, 34);
+            this.notice.TabIndex = 7;
+            this.notice.Text = "This application is for testing purposes only and doesn\'t need running under norm" +
+    "al circumstances by the end-user\r\n";
+            // 
+            // isPlayingControl
+            // 
+            this.isPlayingControl.IsPlaying = false;
+            this.isPlayingControl.Location = new System.Drawing.Point(12, 74);
+            this.isPlayingControl.Name = "isPlayingControl";
+            this.isPlayingControl.Size = new System.Drawing.Size(139, 35);
+            this.isPlayingControl.TabIndex = 2;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 241);
+            this.ClientSize = new System.Drawing.Size(387, 294);
+            this.Controls.Add(this.notice);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnSilence);
             this.Controls.Add(this.btnBreak);
@@ -202,6 +213,7 @@ namespace StandbyStopper
         private System.Windows.Forms.Button btnSilence;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label notice;
     }
 }
 
