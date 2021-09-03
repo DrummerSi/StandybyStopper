@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandbyStopper", "StandbyStopper\StandbyStopper.csproj", "{01993E2D-1E27-4D55-AE79-FB5B7AE00733}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01993E2D-1E27-4D55-AE79-FB5B7AE00733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01993E2D-1E27-4D55-AE79-FB5B7AE00733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01993E2D-1E27-4D55-AE79-FB5B7AE00733}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{01993E2D-1E27-4D55-AE79-FB5B7AE00733}.Debug|x86.Build.0 = Debug|Any CPU
+		{01993E2D-1E27-4D55-AE79-FB5B7AE00733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01993E2D-1E27-4D55-AE79-FB5B7AE00733}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01993E2D-1E27-4D55-AE79-FB5B7AE00733}.Release|x86.ActiveCfg = Release|Any CPU
+		{01993E2D-1E27-4D55-AE79-FB5B7AE00733}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CFF8A1F1-25F8-416E-BB9F-3968EB1083E9}
+	EndGlobalSection
+EndGlobal
