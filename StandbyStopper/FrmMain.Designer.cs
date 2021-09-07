@@ -31,47 +31,31 @@ namespace StandbyStopper
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            this.infoBox = new System.Windows.Forms.TextBox();
             this.volumeMeter = new NAudio.Gui.VolumeMeter();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.timerUI = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnBeep = new System.Windows.Forms.Button();
-            this.btnBreak = new System.Windows.Forms.Button();
-            this.btnSilence = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.lblVersion = new System.Windows.Forms.Label();
             this.notice = new System.Windows.Forms.Label();
+            this.infoBox = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.isPlayingControl = new StandbyStopper.IsPlayingControl();
+            this.btnBeep = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.SuspendLayout();
-            // 
-            // infoBox
-            // 
-            this.infoBox.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.infoBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.infoBox.Enabled = false;
-            this.infoBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoBox.HideSelection = false;
-            this.infoBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.infoBox.Location = new System.Drawing.Point(12, 12);
-            this.infoBox.Multiline = true;
-            this.infoBox.Name = "infoBox";
-            this.infoBox.ReadOnly = true;
-            this.infoBox.Size = new System.Drawing.Size(363, 27);
-            this.infoBox.TabIndex = 0;
-            this.infoBox.Text = "This is a test...";
             // 
             // volumeMeter
             // 
-            this.volumeMeter.Amplitude = 0F;
-            this.volumeMeter.Location = new System.Drawing.Point(12, 45);
+            this.volumeMeter.Amplitude = 5F;
+            this.volumeMeter.Location = new System.Drawing.Point(19, 113);
             this.volumeMeter.MaxDb = 18F;
-            this.volumeMeter.MinDb = -60F;
+            this.volumeMeter.MinDb = -30F;
             this.volumeMeter.Name = "volumeMeter";
             this.volumeMeter.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.volumeMeter.Size = new System.Drawing.Size(363, 23);
+            this.volumeMeter.Size = new System.Drawing.Size(356, 23);
             this.volumeMeter.TabIndex = 1;
             // 
             // timer
@@ -82,113 +66,146 @@ namespace StandbyStopper
             // 
             this.timerUI.AutoSize = true;
             this.timerUI.Font = new System.Drawing.Font("Consolas", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timerUI.Location = new System.Drawing.Point(12, 137);
+            this.timerUI.Location = new System.Drawing.Point(24, 208);
             this.timerUI.Name = "timerUI";
             this.timerUI.Size = new System.Drawing.Size(208, 41);
             this.timerUI.TabIndex = 3;
             this.timerUI.Text = "00:00:00.0";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 121);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Time since last audio";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(12, 111);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(363, 1);
-            this.panel1.TabIndex = 5;
-            // 
-            // btnBeep
-            // 
-            this.btnBeep.Location = new System.Drawing.Point(300, 121);
-            this.btnBeep.Name = "btnBeep";
-            this.btnBeep.Size = new System.Drawing.Size(75, 23);
-            this.btnBeep.TabIndex = 6;
-            this.btnBeep.Text = "Beep";
-            this.btnBeep.UseVisualStyleBackColor = true;
-            this.btnBeep.Click += new System.EventHandler(this.btnBeep_Click);
-            // 
-            // btnBreak
-            // 
-            this.btnBreak.Location = new System.Drawing.Point(300, 150);
-            this.btnBreak.Name = "btnBreak";
-            this.btnBreak.Size = new System.Drawing.Size(75, 23);
-            this.btnBreak.TabIndex = 6;
-            this.btnBreak.Text = "Break";
-            this.btnBreak.UseVisualStyleBackColor = true;
-            this.btnBreak.Click += new System.EventHandler(this.btnBreak_Click);
-            // 
-            // btnSilence
-            // 
-            this.btnSilence.Location = new System.Drawing.Point(300, 179);
-            this.btnSilence.Name = "btnSilence";
-            this.btnSilence.Size = new System.Drawing.Size(75, 23);
-            this.btnSilence.TabIndex = 6;
-            this.btnSilence.Text = "Silence";
-            this.btnSilence.UseVisualStyleBackColor = true;
-            this.btnSilence.Click += new System.EventHandler(this.btnSilence_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(12, 208);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(363, 1);
-            this.panel2.TabIndex = 5;
-            // 
             // lblVersion
             // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(297, 272);
+            this.lblVersion.Location = new System.Drawing.Point(278, 331);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(53, 13);
+            this.lblVersion.Size = new System.Drawing.Size(97, 13);
             this.lblVersion.TabIndex = 7;
             this.lblVersion.Text = "Version {}";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             // 
             // notice
             // 
-            this.notice.Location = new System.Drawing.Point(9, 221);
+            this.notice.Location = new System.Drawing.Point(28, 255);
             this.notice.Name = "notice";
-            this.notice.Size = new System.Drawing.Size(366, 34);
+            this.notice.Size = new System.Drawing.Size(251, 45);
             this.notice.TabIndex = 7;
             this.notice.Text = "This application is for testing purposes only and doesn\'t need running under norm" +
     "al circumstances by the end-user\r\n";
             // 
+            // infoBox
+            // 
+            this.infoBox.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoBox.Appearance.Options.UseFont = true;
+            this.infoBox.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.infoBox.LineLocation = DevExpress.XtraEditors.LineLocation.Bottom;
+            this.infoBox.Location = new System.Drawing.Point(19, 44);
+            this.infoBox.Name = "infoBox";
+            this.infoBox.Size = new System.Drawing.Size(363, 21);
+            this.infoBox.TabIndex = 8;
+            this.infoBox.Text = "Default output device";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl1.LineVisible = true;
+            this.labelControl1.Location = new System.Drawing.Point(12, 13);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(363, 25);
+            this.labelControl1.TabIndex = 9;
+            this.labelControl1.Text = "Default output device ";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Appearance.Options.UseFont = true;
+            this.labelControl2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl2.LineVisible = true;
+            this.labelControl2.Location = new System.Drawing.Point(12, 82);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(363, 25);
+            this.labelControl2.TabIndex = 10;
+            this.labelControl2.Text = "Debugging";
+            // 
             // isPlayingControl
             // 
             this.isPlayingControl.IsPlaying = false;
-            this.isPlayingControl.Location = new System.Drawing.Point(12, 74);
+            this.isPlayingControl.Location = new System.Drawing.Point(19, 142);
             this.isPlayingControl.Name = "isPlayingControl";
             this.isPlayingControl.Size = new System.Drawing.Size(139, 35);
             this.isPlayingControl.TabIndex = 2;
+            // 
+            // btnBeep
+            // 
+            this.btnBeep.Location = new System.Drawing.Point(300, 208);
+            this.btnBeep.Name = "btnBeep";
+            this.btnBeep.Size = new System.Drawing.Size(75, 23);
+            this.btnBeep.TabIndex = 11;
+            this.btnBeep.Text = "Beep";
+            this.btnBeep.Click += new System.EventHandler(this.btnBeep_Click);
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.LineVisible = true;
+            this.labelControl3.Location = new System.Drawing.Point(12, 180);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(363, 25);
+            this.labelControl3.TabIndex = 12;
+            this.labelControl3.Text = "Time since last audio";
+            // 
+            // simpleButton2
+            // 
+            this.simpleButton2.Location = new System.Drawing.Point(300, 237);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton2.TabIndex = 11;
+            this.simpleButton2.Text = "Break";
+            this.simpleButton2.Click += new System.EventHandler(this.btnBreak_Click);
+            // 
+            // simpleButton3
+            // 
+            this.simpleButton3.Location = new System.Drawing.Point(300, 266);
+            this.simpleButton3.Name = "simpleButton3";
+            this.simpleButton3.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton3.TabIndex = 11;
+            this.simpleButton3.Text = "Low tone";
+            this.simpleButton3.Click += new System.EventHandler(this.btnSilence_Click);
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl4.Appearance.Options.UseFont = true;
+            this.labelControl4.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl4.LineVisible = true;
+            this.labelControl4.Location = new System.Drawing.Point(12, 303);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(363, 25);
+            this.labelControl4.TabIndex = 12;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 294);
+            this.ClientSize = new System.Drawing.Size(387, 360);
+            this.Controls.Add(this.labelControl4);
+            this.Controls.Add(this.labelControl3);
+            this.Controls.Add(this.simpleButton3);
+            this.Controls.Add(this.simpleButton2);
+            this.Controls.Add(this.btnBeep);
+            this.Controls.Add(this.labelControl2);
+            this.Controls.Add(this.labelControl1);
+            this.Controls.Add(this.infoBox);
             this.Controls.Add(this.notice);
             this.Controls.Add(this.lblVersion);
-            this.Controls.Add(this.btnSilence);
-            this.Controls.Add(this.btnBreak);
-            this.Controls.Add(this.btnBeep);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.timerUI);
             this.Controls.Add(this.isPlayingControl);
             this.Controls.Add(this.volumeMeter);
-            this.Controls.Add(this.infoBox);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("FrmMain.IconOptions.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmMain";
@@ -200,20 +217,20 @@ namespace StandbyStopper
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox infoBox;
         private NAudio.Gui.VolumeMeter volumeMeter;
         private IsPlayingControl isPlayingControl;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label timerUI;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnBeep;
-        private System.Windows.Forms.Button btnBreak;
-        private System.Windows.Forms.Button btnSilence;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label notice;
+        private DevExpress.XtraEditors.LabelControl infoBox;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.SimpleButton btnBeep;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private DevExpress.XtraEditors.SimpleButton simpleButton3;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
     }
 }
 

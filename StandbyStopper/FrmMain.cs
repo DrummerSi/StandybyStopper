@@ -1,19 +1,16 @@
 ﻿using NAudio.CoreAudioApi;
-using NAudio.Extras;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StandbyStopper
 {
-    public partial class FrmMain : Form
+    public partial class FrmMain : DevExpress.XtraEditors.XtraForm
     {
         Control control;
 
@@ -26,6 +23,8 @@ namespace StandbyStopper
 
         const float SOUND_THRESHOLD = 0.001f;
 
+        static Random rnd = new Random();
+
         public FrmMain()
         {
             InitializeComponent();
@@ -36,16 +35,17 @@ namespace StandbyStopper
             device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             outputDevice = new WaveOutEvent();
 
-            infoBox.Text = $"Device name: {device.DeviceFriendlyName}";
-
+            infoBox.Text = device.DeviceFriendlyName;
 
             capture = new WasapiLoopbackCapture(device);
             capture.DataAvailable += (s, a) =>
             {
                 var device_ = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
                 var level = Clamp(device_.AudioMeterInformation.MasterPeakValue * 10, SOUND_THRESHOLD, 5);
+                
                 volumeMeter.Amplitude = level;
-
+                Console.WriteLine(level);
+;
                 //Console.WriteLine(level + ", " + device_.AudioMeterInformation.MasterPeakValue);
                 isPlayingControl.IsPlaying = (level <= SOUND_THRESHOLD) ? false : true;
 
@@ -123,5 +123,9 @@ namespace StandbyStopper
             outputDevice.Play();
         }
 
+        private void lblVersion_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
