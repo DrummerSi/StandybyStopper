@@ -7,6 +7,8 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraCharts;
+using NAudio.Extras;
 
 namespace StandbyStopper
 {
@@ -14,55 +16,96 @@ namespace StandbyStopper
     {
         Control control;
 
-        WasapiLoopbackCapture capture;
+        //WasapiLoopbackCapture capture;
 
         private DateTime StartTime;
 
-        private MMDevice device;
-        WaveOutEvent outputDevice;
+        //private MMDevice device;
+        //WaveOutEvent outputDevice;
 
         const float SOUND_THRESHOLD = 0.001f;
 
         static Random rnd = new Random();
 
+        NAudioEngine soundEngine = NAudioEngine.Instance;
+
+
+        private static int fftLength = 1024;
+        //private SampleAggregator sampleAggregator = new SampleAggregator(fftLength);
+
         public FrmMain()
         {
             InitializeComponent();
 
+            VisControl control = elementHost.Child as VisControl;
+            control.Analyzer.RegisterSoundPlayer(soundEngine);
+
+            //Get default output
+            infoBox.Text = soundEngine.device.DeviceFriendlyName;
+
+            soundEngine.capture.DataAvailable += OnDataAvailable;
+            soundEngine.capture.StartRecording();
+            
+            //Set version
             lblVersion.Text = $"Version {Application.ProductVersion}";
-
-            var enumerator = new MMDeviceEnumerator();
-            device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            outputDevice = new WaveOutEvent();
-
-            infoBox.Text = device.DeviceFriendlyName;
-
-            capture = new WasapiLoopbackCapture(device);
-            capture.DataAvailable += (s, a) =>
-            {
-                var device_ = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-                var level = Clamp(device_.AudioMeterInformation.MasterPeakValue * 10, SOUND_THRESHOLD, 5);
-                
-                volumeMeter.Amplitude = level;
-                Console.WriteLine(level);
-;
-                //Console.WriteLine(level + ", " + device_.AudioMeterInformation.MasterPeakValue);
-                isPlayingControl.IsPlaying = (level <= SOUND_THRESHOLD) ? false : true;
-
-                if (isPlayingControl.IsPlaying)
-                {
-                    StartTimer();
-                }
-            };
-            capture.StartRecording();
-
+            
             StartTimer();
 
         }
 
+
+        private void OnDataAvailable(object sender, WaveInEventArgs e)
+        {
+
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new EventHandler<WaveInEventArgs>(OnDataAvailable), sender, e);
+            }
+            else
+            {
+                //soundEngine.sampleAggregator.Clear();
+                //soundEngine.sampleAggregator.Add(rnd.Next(-100,50), 0);
+                /*float maxValue = 32767;
+                int peakL = 0;
+                int peakR = 0;
+                int bytesPerSample = 4;
+                for (int index = 0; index < e.BytesRecorded; index += bytesPerSample)
+                {
+                    int valueL = BitConverter.ToInt16(e.Buffer, index);
+                    peakL = Math.Max(peakL, valueL);
+                    int valueR = BitConverter.ToInt16(e.Buffer, index + 2);
+                    peakR = Math.Max(peakR, valueR);
+                }
+                soundEngine.sampleAggregator.Clear();
+                soundEngine.sampleAggregator.Add(peakL/maxValue, peakR/maxValue);
+                */
+
+                byte[] buffer = e.Buffer;
+                int bytesRecorded = e.BytesRecorded;
+                int bufferIncrement = soundEngine.capture.WaveFormat.BlockAlign;
+                for (int index = 0; index < bytesRecorded; index += bufferIncrement)
+                {
+                    float sample32 = BitConverter.ToSingle(buffer, index);
+                    soundEngine.sampleAggregator.Add(sample32, sample32);
+                }
+
+
+
+                var level = Clamp(soundEngine.device.AudioMeterInformation.MasterPeakValue * 10, SOUND_THRESHOLD, 5);
+
+                volumeMeter.Amplitude = level;
+                isPlayingControl.IsPlaying = (level <= SOUND_THRESHOLD) ? false : true;
+                
+                if (isPlayingControl.IsPlaying) StartTimer();
+
+            }
+
+            
+        }
+
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            capture.StopRecording();
+            soundEngine.capture.StopRecording();
         }
 
         private float Clamp(float value, float min, float max)
@@ -112,16 +155,17 @@ namespace StandbyStopper
 
         private void PlaySound(string name)
         {
-            if (outputDevice.PlaybackState == PlaybackState.Playing)
+            if (soundEngine.outputDevice.PlaybackState == PlaybackState.Playing)
             {
-                outputDevice.Stop();
+                soundEngine.outputDevice.Stop();
             };
             
             
             var audioFile = new AudioFileReader($"./audio/{name}.wav");
-            outputDevice.Init(audioFile);
-            outputDevice.Play();
+            soundEngine.outputDevice.Init(audioFile);
+            soundEngine.outputDevice.Play();
         }
+        
 
         private void lblVersion_Click(object sender, EventArgs e)
         {

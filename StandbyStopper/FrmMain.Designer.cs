@@ -45,6 +45,9 @@ namespace StandbyStopper
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.elementHost = new System.Windows.Forms.Integration.ElementHost();
+            this.visControl2 = new StandbyStopper.VisControl();
+            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.SuspendLayout();
             // 
             // volumeMeter
@@ -74,7 +77,7 @@ namespace StandbyStopper
             // 
             // lblVersion
             // 
-            this.lblVersion.Location = new System.Drawing.Point(278, 331);
+            this.lblVersion.Location = new System.Drawing.Point(278, 510);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(97, 13);
             this.lblVersion.TabIndex = 7;
@@ -180,16 +183,38 @@ namespace StandbyStopper
             this.labelControl4.Appearance.Options.UseFont = true;
             this.labelControl4.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
             this.labelControl4.LineVisible = true;
-            this.labelControl4.Location = new System.Drawing.Point(12, 303);
+            this.labelControl4.Location = new System.Drawing.Point(12, 482);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(363, 25);
             this.labelControl4.TabIndex = 12;
+            // 
+            // elementHost
+            // 
+            this.elementHost.Location = new System.Drawing.Point(19, 334);
+            this.elementHost.Name = "elementHost";
+            this.elementHost.Size = new System.Drawing.Size(356, 142);
+            this.elementHost.TabIndex = 14;
+            this.elementHost.Child = this.visControl2;
+            // 
+            // labelControl5
+            // 
+            this.labelControl5.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl5.Appearance.Options.UseFont = true;
+            this.labelControl5.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl5.LineVisible = true;
+            this.labelControl5.Location = new System.Drawing.Point(12, 303);
+            this.labelControl5.Name = "labelControl5";
+            this.labelControl5.Size = new System.Drawing.Size(363, 25);
+            this.labelControl5.TabIndex = 15;
+            this.labelControl5.Text = "Spectrum analyser";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 360);
+            this.ClientSize = new System.Drawing.Size(387, 542);
+            this.Controls.Add(this.labelControl5);
+            this.Controls.Add(this.elementHost);
             this.Controls.Add(this.labelControl4);
             this.Controls.Add(this.labelControl3);
             this.Controls.Add(this.simpleButton3);
@@ -231,6 +256,10 @@ namespace StandbyStopper
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
         private DevExpress.XtraEditors.SimpleButton simpleButton3;
         private DevExpress.XtraEditors.LabelControl labelControl4;
+        private System.Windows.Forms.Integration.ElementHost elementHost;
+        private VisControl visControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl5;
+        private VisControl visControl2;
     }
 }
 
