@@ -6,9 +6,8 @@ namespace StandbyStopper
 {
     class Stopper
     {
-        private WasapiLoopbackCapture capture;
 
-        const float SOUND_THRESHOLD = 0.001f;
+        const float SoundThreshold = 0.001f;
 
         public static void Run()
         {
@@ -20,10 +19,10 @@ namespace StandbyStopper
             capture.DataAvailable += (s, a) =>
             {
                 var device_ = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-                var level = Clamp(device_.AudioMeterInformation.MasterPeakValue * 10, SOUND_THRESHOLD, 5);
+                var level = Clamp(device_.AudioMeterInformation.MasterPeakValue * 10, SoundThreshold, 5);
 
                 //Console.WriteLine(level);
-                if(level <= SOUND_THRESHOLD)
+                if(level <= SoundThreshold)
                 {
                     //There's currently no sound.. Play a sound
                     var audioFile = new AudioFileReader($"./audio/silence.wav");

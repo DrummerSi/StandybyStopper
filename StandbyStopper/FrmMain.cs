@@ -1,14 +1,6 @@
-﻿using NAudio.CoreAudioApi;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraCharts;
-using NAudio.Extras;
 
 namespace StandbyStopper
 {
@@ -16,38 +8,29 @@ namespace StandbyStopper
     {
         Control control;
 
-        //WasapiLoopbackCapture capture;
-
         private DateTime StartTime;
-
-        //private MMDevice device;
-        //WaveOutEvent outputDevice;
 
         const float SOUND_THRESHOLD = 0.001f;
 
         static Random rnd = new Random();
 
-        NAudioEngine soundEngine = NAudioEngine.Instance;
-
-
-        private static int fftLength = 1024;
-        //private SampleAggregator sampleAggregator = new SampleAggregator(fftLength);
+        readonly NAudioEngine SoundEngine = NAudioEngine.Instance;
 
         public FrmMain()
         {
             InitializeComponent();
 
             VisControl control = elementHost.Child as VisControl;
-            control.Analyzer.RegisterSoundPlayer(soundEngine);
+            control.Analyzer.RegisterSoundPlayer(SoundEngine);
 
             //Get default output
-            infoBox.Text = soundEngine.device.DeviceFriendlyName;
+            infoBox.Text = SoundEngine.device.DeviceFriendlyName;
 
-            soundEngine.capture.DataAvailable += OnDataAvailable;
-            soundEngine.capture.StartRecording();
+            SoundEngine.capture.DataAvailable += OnDataAvailable;
+            SoundEngine.capture.StartRecording();
             
             //Set version
-            lblVersion.Text = $"Version {Application.ProductVersion}";
+            lblVersion.Text = $@"Version {Application.ProductVersion}";
             
             StartTimer();
 
@@ -63,38 +46,20 @@ namespace StandbyStopper
             }
             else
             {
-                //soundEngine.sampleAggregator.Clear();
-                //soundEngine.sampleAggregator.Add(rnd.Next(-100,50), 0);
-                /*float maxValue = 32767;
-                int peakL = 0;
-                int peakR = 0;
-                int bytesPerSample = 4;
-                for (int index = 0; index < e.BytesRecorded; index += bytesPerSample)
-                {
-                    int valueL = BitConverter.ToInt16(e.Buffer, index);
-                    peakL = Math.Max(peakL, valueL);
-                    int valueR = BitConverter.ToInt16(e.Buffer, index + 2);
-                    peakR = Math.Max(peakR, valueR);
-                }
-                soundEngine.sampleAggregator.Clear();
-                soundEngine.sampleAggregator.Add(peakL/maxValue, peakR/maxValue);
-                */
 
                 byte[] buffer = e.Buffer;
                 int bytesRecorded = e.BytesRecorded;
-                int bufferIncrement = soundEngine.capture.WaveFormat.BlockAlign;
+                int bufferIncrement = SoundEngine.capture.WaveFormat.BlockAlign;
                 for (int index = 0; index < bytesRecorded; index += bufferIncrement)
                 {
                     float sample32 = BitConverter.ToSingle(buffer, index);
-                    soundEngine.sampleAggregator.Add(sample32, sample32);
+                    SoundEngine.sampleAggregator.Add(sample32, sample32);
                 }
 
-
-
-                var level = Clamp(soundEngine.device.AudioMeterInformation.MasterPeakValue * 10, SOUND_THRESHOLD, 5);
+                var level = Clamp(SoundEngine.device.AudioMeterInformation.MasterPeakValue * 10, SOUND_THRESHOLD, 5);
 
                 volumeMeter.Amplitude = level;
-                isPlayingControl.IsPlaying = (level <= SOUND_THRESHOLD) ? false : true;
+                isPlayingControl.IsPlaying = (!(level <= SOUND_THRESHOLD));
                 
                 if (isPlayingControl.IsPlaying) StartTimer();
 
@@ -105,7 +70,7 @@ namespace StandbyStopper
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            soundEngine.capture.StopRecording();
+            SoundEngine.capture.StopRecording();
         }
 
         private float Clamp(float value, float min, float max)
@@ -155,15 +120,15 @@ namespace StandbyStopper
 
         private void PlaySound(string name)
         {
-            if (soundEngine.outputDevice.PlaybackState == PlaybackState.Playing)
+            if (SoundEngine.outputDevice.PlaybackState == PlaybackState.Playing)
             {
-                soundEngine.outputDevice.Stop();
+                SoundEngine.outputDevice.Stop();
             };
             
             
             var audioFile = new AudioFileReader($"./audio/{name}.wav");
-            soundEngine.outputDevice.Init(audioFile);
-            soundEngine.outputDevice.Play();
+            SoundEngine.outputDevice.Init(audioFile);
+            SoundEngine.outputDevice.Play();
         }
         
 

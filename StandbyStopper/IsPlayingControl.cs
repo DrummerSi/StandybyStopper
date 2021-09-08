@@ -10,41 +10,41 @@ namespace StandbyStopper
 {
     public partial class IsPlayingControl : UserControl
     {
-
-        Control control;
+        readonly Control _control;
 
         private Boolean isPlaying_ { get; set; }
 
         public Boolean IsPlaying {
-            get { return isPlaying_; }
+            get => isPlaying_;
             set
             {
                 try
                 {
-                    control.BeginInvoke((MethodInvoker)delegate ()
+                    _control.BeginInvoke((MethodInvoker)delegate ()
                     {
                         isPlaying_ = value;
                         if (value)
                         {
                             icon.Image = Properties.Resources.green;
-                            label.Text = "Audio detected";
+                            label.Text = @"Audio detected";
                         }
                         else
                         {
                             icon.Image = Properties.Resources.red;
-                            label.Text = "No audio";
+                            label.Text = @"No audio";
                         }
                     });
                 } catch (Exception e)
                 {
                     //Do nothing
+                    Console.WriteLine($@"Something fucked up! {e.Message}");
                 }
             }
         }
         public IsPlayingControl()
         {
             InitializeComponent();
-            control = icon;
+            _control = icon;
         }
     }
 }
