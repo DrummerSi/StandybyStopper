@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace StandbyStopper
 {
