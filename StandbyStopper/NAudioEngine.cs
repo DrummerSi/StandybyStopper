@@ -16,20 +16,20 @@ namespace StandbyStopper
 
         #region Fields
 
-        private static NAudioEngine instance;
-        private readonly int fftDataSize = (int)FFTDataSize.FFT2048;
-        private bool disposed;
+        private static NAudioEngine _instance;
+        private const int FftDataSize = (int)FFTDataSize.FFT2048;
+        private bool _disposed;
 
-        public SampleAggregator sampleAggregator;
-        public MMDevice device;
-        public WaveOutEvent outputDevice;
-        public WasapiLoopbackCapture capture;
+        public SampleAggregator SampleAggregator;
+        public MMDevice Device;
+        public WaveOutEvent OutputDevice;
+        public WasapiLoopbackCapture Capture;
 
         #endregion
 
         #region Singleton Pattern
 
-        public static NAudioEngine Instance => instance ?? (instance = new NAudioEngine());
+        public static NAudioEngine Instance => _instance ?? (_instance = new NAudioEngine());
 
         #endregion
 
@@ -38,11 +38,11 @@ namespace StandbyStopper
         private NAudioEngine()
         {
             var enumerator = new MMDeviceEnumerator();
-            device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            outputDevice = new WaveOutEvent();
-            capture = new WasapiLoopbackCapture(device);
+            Device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            OutputDevice = new WaveOutEvent();
+            Capture = new WasapiLoopbackCapture(Device);
 
-            sampleAggregator = new SampleAggregator(fftDataSize);
+            SampleAggregator = new SampleAggregator(FftDataSize);
         }
 
         #endregion
@@ -57,7 +57,7 @@ namespace StandbyStopper
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed) disposed = true;
+            if (!_disposed) _disposed = true;
         }
 
         #endregion
@@ -67,14 +67,14 @@ namespace StandbyStopper
 
         public bool GetFFTData(float[] fftDataBuffer)
         {
-            sampleAggregator.GetFFTResults(fftDataBuffer);
+            SampleAggregator.GetFFTResults(fftDataBuffer);
             return true;
         }
 
         public int GetFFTFrequencyIndex(int frequency)
         {
             double maxFrequency = 22050; // Assume a default 44.1 kHz sample rate.
-            return (int)((frequency / maxFrequency) * (fftDataSize / 2));
+            return (int)((frequency / maxFrequency) * (FftDataSize / 2));
         }
 
         public bool IsPlaying => true;

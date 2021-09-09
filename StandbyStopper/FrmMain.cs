@@ -2,33 +2,39 @@
 using System;
 using System.Windows.Forms;
 using System.Windows.Media;
+using WPFSoundVisualizationLib;
 
 namespace StandbyStopper
 {
     public partial class FrmMain : DevExpress.XtraEditors.XtraForm
     {
-        Control control;
 
-        private DateTime StartTime;
+        public readonly NAudioEngine SoundEngine = NAudioEngine.Instance;
+        const float SoundThreshold = 0.001f;
 
-        const float SOUND_THRESHOLD = 0.001f;
-
-        static Random rnd = new Random();
-
-        readonly NAudioEngine SoundEngine = NAudioEngine.Instance;
+        private DateTime _startTime;
+       
 
         public FrmMain()
         {
             InitializeComponent();
 
-            VisControl control = elementHost.Child as VisControl;
-            control.Analyzer.RegisterSoundPlayer(SoundEngine);
+            //ElementHost should always be a VisControl. This makes sure it's loaded before using
+            if (elementHost.Child is VisControl visControl)
+            {
+                visControl.Analyzer.RegisterSoundPlayer(SoundEngine);
+            }
+            else
+            {
+                MessageBox.Show(@"Spectrum Analyser not initialised correctly.", @"Initialising error");
+            }
+
 
             //Get default output
-            infoBox.Text = SoundEngine.device.DeviceFriendlyName;
+            infoBox.Text = SoundEngine.Device.DeviceFriendlyName;
 
-            SoundEngine.capture.DataAvailable += OnDataAvailable;
-            SoundEngine.capture.StartRecording();
+            SoundEngine.Capture.DataAvailable += OnDataAvailable;
+            SoundEngine.Capture.StartRecording();
             
             //Set version
             lblVersion.Text = $@"Version {Application.ProductVersion}";
@@ -50,17 +56,17 @@ namespace StandbyStopper
 
                 byte[] buffer = e.Buffer;
                 int bytesRecorded = e.BytesRecorded;
-                int bufferIncrement = SoundEngine.capture.WaveFormat.BlockAlign;
+                int bufferIncrement = SoundEngine.Capture.WaveFormat.BlockAlign;
                 for (int index = 0; index < bytesRecorded; index += bufferIncrement)
                 {
                     float sample32 = BitConverter.ToSingle(buffer, index);
-                    SoundEngine.sampleAggregator.Add(sample32, sample32);
+                    SoundEngine.SampleAggregator.Add(sample32, sample32);
                 }
 
-                var level = Clamp(SoundEngine.device.AudioMeterInformation.MasterPeakValue * 10, SOUND_THRESHOLD, 5);
+                var level = Clamp(SoundEngine.Device.AudioMeterInformation.MasterPeakValue * 10, SoundThreshold, 5);
 
                 volumeMeter.Amplitude = level;
-                isPlayingControl.IsPlaying = (!(level <= SOUND_THRESHOLD));
+                isPlayingControl.IsPlaying = (!(level <= SoundThreshold));
                 
                 if (isPlayingControl.IsPlaying) StartTimer();
 
@@ -71,7 +77,7 @@ namespace StandbyStopper
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SoundEngine.capture.StopRecording();
+            SoundEngine.Capture.StopRecording();
         }
 
         private float Clamp(float value, float min, float max)
@@ -81,13 +87,13 @@ namespace StandbyStopper
 
         private void StartTimer()
         {
-            StartTime = DateTime.Now;
+            _startTime = DateTime.Now;
             timer.Enabled = true;
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan elapsed = DateTime.Now - StartTime;
+            TimeSpan elapsed = DateTime.Now - _startTime;
             string text = "";
             if (elapsed.Days > 0) text += elapsed.Days.ToString() + ".";
 
@@ -121,15 +127,15 @@ namespace StandbyStopper
 
         private void PlaySound(string name)
         {
-            if (SoundEngine.outputDevice.PlaybackState == PlaybackState.Playing)
+            if (SoundEngine.OutputDevice.PlaybackState == PlaybackState.Playing)
             {
-                SoundEngine.outputDevice.Stop();
+                SoundEngine.OutputDevice.Stop();
             };
             
             
             var audioFile = new AudioFileReader($"./audio/{name}.wav");
-            SoundEngine.outputDevice.Init(audioFile);
-            SoundEngine.outputDevice.Play();
+            SoundEngine.OutputDevice.Init(audioFile);
+            SoundEngine.OutputDevice.Play();
         }
         
 
