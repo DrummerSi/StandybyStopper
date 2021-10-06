@@ -46,7 +46,6 @@ namespace StandbyStopper
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.elementHost = new System.Windows.Forms.Integration.ElementHost();
-            this.visControl2 = new StandbyStopper.VisControl();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.SuspendLayout();
             // 
@@ -194,7 +193,7 @@ namespace StandbyStopper
             this.elementHost.Name = "elementHost";
             this.elementHost.Size = new System.Drawing.Size(356, 142);
             this.elementHost.TabIndex = 14;
-            this.elementHost.Child = this.visControl2;
+            this.elementHost.Child = null;
             // 
             // labelControl5
             // 
