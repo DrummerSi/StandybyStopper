@@ -19,17 +19,6 @@ namespace StandbyStopper
         {
             InitializeComponent();
 
-            //ElementHost should always be a VisControl. This makes sure it's loaded before using
-            if (elementHost.Child is VisControl visControl)
-            {
-                visControl.Analyzer.RegisterSoundPlayer(SoundEngine);
-            }
-            else
-            {
-                MessageBox.Show(@"Spectrum Analyser not initialised correctly.", @"Initialising error");
-            }
-
-
             //Get default output
             infoBox.Text = SoundEngine.Device.DeviceFriendlyName;
 

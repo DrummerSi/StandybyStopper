@@ -12,10 +12,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="Manufacturer" Value="Creative Standby Stopper"/>
-    <ROW Property="ProductCode" Value="2057:{84C9C7A5-7649-412F-BD17-A8E6B0E77381} " Type="16"/>
+    <ROW Property="ProductCode" Value="2057:{00DB3B80-AB33-486D-85C6-62FEDC6E48DF} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Standby Stopper"/>
-    <ROW Property="ProductVersion" Value="1.2.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.3.0" Type="32"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:Force"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{B8C8CA12-10F3-43DA-A776-BF1EC7DC6798}"/>
@@ -61,9 +61,11 @@
     <ROW Component="NAudio.WinMM.dll" ComponentId="{2B76A421-B6E9-4766-A67C-046672F93F64}" Directory_="APPDIR" Attributes="0" KeyPath="NAudio.WinMM.dll"/>
     <ROW Component="NAudio.dll" ComponentId="{12E725AB-37AE-49B9-A243-2B79867C9036}" Directory_="APPDIR" Attributes="0" KeyPath="NAudio.dll"/>
     <ROW Component="ProductInformation" ComponentId="{17745049-63D4-4DDF-8A74-91E0632E00FA}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="Protected.exe" ComponentId="{39A997C9-3E6E-4B66-94B2-244CFB0DC3E2}" Directory_="APPDIR" Attributes="0" KeyPath="Protected.exe"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{A7F02C67-A879-4972-8903-B3219C77EC4D}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="StandbyStopper.exe" ComponentId="{B0196064-FCD3-4A74-9A88-E3842F076A77}" Directory_="APPDIR" Attributes="0" KeyPath="StandbyStopper.exe_1"/>
-    <ROW Component="StandbyStopper.exe_1" ComponentId="{FCEFA076-DD47-4328-9156-17BCAB8C0176}" Directory_="APPDIR" Attributes="0" KeyPath="StandbyStopper.pdb_1"/>
+    <ROW Component="StandbyStopper.exe_1" ComponentId="{FCEFA076-DD47-4328-9156-17BCAB8C0176}" Directory_="APPDIR" Attributes="0" KeyPath="StandbyStopper.pdb_1" Type="4"/>
+    <ROW Component="StandbyStoppertest.exe" ComponentId="{529F64F8-A5D8-4F8A-A985-5DD5B2B138A3}" Directory_="APPDIR" Attributes="0" KeyPath="StandbyStoppertest.exe"/>
     <ROW Component="System.Security.AccessControl.dll" ComponentId="{E5C1FE33-5795-4944-91A2-21159E23C188}" Directory_="APPDIR" Attributes="0" KeyPath="System.Security.AccessControl.dll"/>
     <ROW Component="System.Security.Principal.Windows.dll" ComponentId="{6E82C23A-2A25-45E7-9CF4-C2E63939A08C}" Directory_="APPDIR" Attributes="0" KeyPath="System.Security.Principal.Windows.dll"/>
     <ROW Component="WPFSoundVisualizationLib.dll" ComponentId="{1F8B7036-DF9A-47A5-AE92-40CDB87A3B41}" Directory_="APPDIR" Attributes="0" KeyPath="WPFSoundVisualizationLib.dll"/>
@@ -103,6 +105,8 @@
     <ROW File="StandbyStopper.exe.config_1" Component_="CommandLine.xml" FileName="STANDB~2.CON|Standby Stopper.exe.config" Attributes="0" SourcePath="..\StandbyStopper\bin\Release\Standby Stopper.exe.config" SelfReg="false"/>
     <ROW File="StandbyStopper.pdb_1" Component_="StandbyStopper.exe_1" FileName="STANDB~2.PDB|Standby Stopper.pdb" Attributes="0" SourcePath="..\StandbyStopper\bin\Release\Standby Stopper.pdb" SelfReg="false"/>
     <ROW File="WPFSoundVisualizationLib.dll" Component_="WPFSoundVisualizationLib.dll" FileName="WPFSOU~1.DLL|WPFSoundVisualizationLib.dll" Attributes="0" SourcePath="..\StandbyStopper\bin\Release\WPFSoundVisualizationLib.dll" SelfReg="false"/>
+    <ROW File="Protected.exe" Component_="Protected.exe" FileName="PROTEC~1.EXE|Protected.exe" Attributes="0" SourcePath="..\StandbyStopper\bin\Release\Protected.exe" SelfReg="false"/>
+    <ROW File="StandbyStoppertest.exe" Component_="StandbyStoppertest.exe" FileName="STANDB~2.EXE|Standby Stopper-test.exe" Attributes="0" SourcePath="..\StandbyStopper\bin\Release\Standby Stopper-test.exe" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -269,6 +273,8 @@
     <ROW Feature_="MainFeature" Component_="x64"/>
     <ROW Feature_="MainFeature" Component_="x86"/>
     <ROW Feature_="MainFeature" Component_="WPFSoundVisualizationLib.dll"/>
+    <ROW Feature_="MainFeature" Component_="Protected.exe"/>
+    <ROW Feature_="MainFeature" Component_="StandbyStoppertest.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="StandbyStopper.exe" SourcePath="..\StandbyStopper\bin\Release\Standby Stopper.exe" Index="0"/>
@@ -347,7 +353,7 @@
     <ROW SearchKey="A6D7F21EAEB4C4A901F0979CF110936Release" Prereq="A6D7F21EAEB4C4A901F0979CF110936" SearchType="9" SearchString="HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\Release" RefContent="G461813" Order="1" Property="PreReqSearch_A6D7F21EAEB4C4A901F097"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.ScheduledTasksComponent">
-    <ROW TaskId="StandbyStopper" TaskName="Standby Stopper" Run="[#StandbyStopper.exe_1]" CmdLine="-t" WorkDir="[APPDIR]" UserProp="[%UserDomain]\[LogonUser]" Flags="24576" Trigger="5|1|1|1|0|10|0||0" Settings="2" Condition="1" TaskVersion="2.0"/>
+    <ROW TaskId="StandbyStopper" TaskName="Standby Stopper" Run="[#StandbyStopper.exe_1]" CmdLine="-t" WorkDir="[APPDIR]" UserProp="[%UserDomain]\[LogonUser]" Flags="24576" Trigger="5|1|1|1|0|10|0||0" Settings="2" Condition="1" TaskVersion="2.4"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">
     <ROW Directory_="APPDIR" SourcePath="..\StandbyStopper\bin\Release" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6"/>

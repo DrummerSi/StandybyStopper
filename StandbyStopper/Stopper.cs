@@ -1,6 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using System.Threading;
+using System.Windows;
 
 namespace StandbyStopper
 {
